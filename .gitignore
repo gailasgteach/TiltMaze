@@ -1,0 +1,23 @@
+#ignore the target subdirectory
+target/
+#ignore Mac OSX filesystem files
+.DS_Store
+#ignore Gluon Mobile license file
+gluonmobile.license
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+#ignore private pom file
+private-pom.xml
+#ignore NetBeans config file
+nbactions.xml
+#ignore intelliJ config files and directory tree
+tiltmaze.iml
+.idea/
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+# https://github.com/takari/maven-wrapper#usage-without-binary-jar
+.mvn/wrapper/maven-wrapper.jar

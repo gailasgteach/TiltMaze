@@ -1,0 +1,16 @@
+<?xml version='1.0'?>
+<manifest xmlns:android='http://schemas.android.com/apk/res/android' package='com.asgteach.accelerometer.TiltMaze' android:versionCode='1' android:versionName='1.0'>
+    <supports-screens android:xlargeScreens="true"/>
+    <uses-feature android:name="android.hardware.sensor.accelerometer" android:required="true" />
+    <application android:label='TiltMaze' android:icon="@mipmap/ic_launcher">
+        <activity android:name='com.gluonhq.helloandroid.MainActivity'
+                  android:screenOrientation='portrait'
+                  android:configChanges="orientation|keyboardHidden">
+            <intent-filter>
+                <category android:name='android.intent.category.LAUNCHER'/>
+                <action android:name='android.intent.action.MAIN'/>
+            </intent-filter>      
+        </activity>
+    </application>
+</manifest>
+
