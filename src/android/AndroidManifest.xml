@@ -5,12 +5,15 @@
     <application android:label='TiltMaze' android:icon="@mipmap/ic_launcher">
         <activity android:name='com.gluonhq.helloandroid.MainActivity'
                   android:screenOrientation='portrait'
+                  android:exported="true"
                   android:configChanges="orientation|keyboardHidden">
             <intent-filter>
                 <category android:name='android.intent.category.LAUNCHER'/>
                 <action android:name='android.intent.action.MAIN'/>
             </intent-filter>      
         </activity>
+        <activity android:name='com.gluonhq.helloandroid.PermissionRequestActivity'
+                  android:exported="true"/>
     </application>
 </manifest>
 

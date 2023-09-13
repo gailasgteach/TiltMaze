@@ -1,61 +1,49 @@
-
 # TiltMaze
+# Updated TiltMaze on Google Play to use Android Target SDK 33,
+# so it will work with newer Android devices
+# 13 September 2023
 
-A simple Accelerometer application with Java 11+, JavaFX 15+ and GraalVM.
+This Gluon sample was generated from https://start.gluon.io
 
-## Documentation
+## Basic Requirements
 
-Read about this sample [here](https://docs.gluonhq.com/client/#_hellofx)
+A list of the basic requirements can be found online in the [Gluon documentation](https://docs.gluonhq.com/#_requirements).
 
-## Quick Instructions
+## Quick instructions
 
-We use [Gluon Client](https://docs.gluonhq.com/client/) to build a native image for platforms including desktop, android and iOS.
-Please follow the Gluon Client prerequisites as stated [here](https://docs.gluonhq.com/client/#_requirements).
+### Run the sample on JVM/HotSpot:
 
-### Desktop
-[No accelerometer on desktop, but you can test the UI using mouse press
-on ball at beginning, then mouse drag to guide the ball through the maze.]
+    mvn gluonfx:run
 
-Run the application using:
+### Run the sample as a native image:
 
-    mvn javafx:run
+    mvn gluonfx:build gluonfx:nativerun
 
-Build a native image using:
+### Run the sample as a native android image:
 
-    mvn client:build
+    mvn -Pandroid gluonfx:build gluonfx:package gluonfx:install gluonfx:nativerun
 
-Run the native image app:
+### Run the sample as a native iOS image:
 
-    mvn client:run
+    mvn -Pios gluonfx:build gluonfx:package gluonfx:install gluonfx:nativerun
 
-### Android
+## Selected features
 
-Build a native image for Android using:
+This is a list of all the features that were selected when creating the sample:
 
-    mvn client:build -Pandroid
+### JavaFX 20 Modules
 
-Package the native image as an 'apk' file:
+ - javafx-base
+ - javafx-graphics
+ - javafx-controls
+ - javafx-fxml
 
-    mvn client:package -Pandroid
+### Gluon Features
 
-Install it on a connected android device:
-
-    mvn client:install -Pandroid
-
-Run the installed app on a connected android device:
-
-    mvn client:run -Pandroid
-
-### iOS
-
-Build a native image for iOS using:
-
-    mvn client:build -Pios
-
-Install and run the native image on a connected iOS device:
-
-    mvn client:run -Pios
-
-Create an IPA file (for submission to TestFlight or App Store):
-
-    mvn client:package -Pios
+ - Glisten: build platform independent user interfaces
+ - Glisten Afterburner: minimalistic dependency injection
+ - Attach accelerometer
+ - Attach display
+ - Attach lifecycle
+ - Attach statusbar
+ - Attach storage

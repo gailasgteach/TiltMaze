@@ -1,10 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.asgteach</groupId>
     <artifactId>tiltmaze</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <packaging>jar</packaging>
 
     <name>TiltMaze</name>
@@ -12,16 +13,25 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>11</maven.compiler.release>
-        <javafx.version>16</javafx.version>
-        <charm.version>6.0.6</charm.version>
-        <glisten.afterburner.version>2.0.5</glisten.afterburner.version>
-        <attach.version>4.0.11</attach.version>
-        <javafx.maven.plugin.version>0.0.5</javafx.maven.plugin.version>
-        <client.maven.plugin.version>0.1.39</client.maven.plugin.version>
-        <mainClassName>com.asgteach.accelerometer.TiltMaze</mainClassName>
+        <javafx.version>20</javafx.version>
+        <charm.version>6.2.3</charm.version>
+        <attach.version>4.0.19-SNAPSHOT</attach.version>
+        <javafx.plugin.version>0.0.8</javafx.plugin.version>
+        <gluonfx.plugin.version>1.0.20-SNAPSHOT</gluonfx.plugin.version>
+        <main.class>com.asgteach.accelerometer.TiltMaze</main.class>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-base</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-graphics</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
@@ -40,7 +50,7 @@
         <dependency>
             <groupId>com.gluonhq</groupId>
             <artifactId>glisten-afterburner</artifactId>
-            <version>${glisten.afterburner.version}</version>
+            <version>2.1.0</version>
         </dependency>
         <dependency>
             <groupId>com.gluonhq.attach</groupId>
@@ -85,18 +95,19 @@
             <plugin>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
-                <version>${javafx.maven.plugin.version}</version>
+                <version>${javafx.plugin.version}</version>
                 <configuration>
-                    <mainClass>${mainClassName}</mainClass>
+                    <mainClass>${main.class}</mainClass>
                 </configuration>
             </plugin>
 
             <plugin>
                 <groupId>com.gluonhq</groupId>
-                <artifactId>client-maven-plugin</artifactId>
-                <version>${client.maven.plugin.version}</version>
+                <artifactId>gluonfx-maven-plugin</artifactId>
+                <version>${gluonfx.plugin.version}</version>
                 <configuration>
-                    <target>${clientTarget}</target>
+                    <target>${gluonfx.target}</target>
+                    <mainClass>${main.class}</mainClass>
                     <attachList>
                         <list>accelerometer</list>
                         <list>display</list>
@@ -104,14 +115,19 @@
                         <list>statusbar</list>
                         <list>storage</list>
                     </attachList>
+                    <!--<bundlesList>
+                        <list>com.asgteach.accelerometer</list>
+                    </bundlesList>-->
+                    <appIdentifier>com.asgteach.accelerometer.TiltMaze</appIdentifier>
                     <reflectionList>
                         <list>com.asgteach.accelerometer.views.TiltMazeMainPresenter</list>
+                        <list>com.asgteach.accelerometer.views.AppViewManager</list>
                         <list>com.asgteach.accelerometer.model.Maze</list>
+                        <list>com.asgteach.accelerometer.model.CircleHole</list>
                         <list>com.gluonhq.charm.glisten.control.ProgressIndicator</list>
                         <list>javafx.scene.control.Slider</list>
                         <list>javafx.scene.shape.Rectangle</list>
                     </reflectionList>
-                    <mainClass>${mainClassName}</mainClass>
                     <verbose>false</verbose>
                     <releaseConfiguration>
                     </releaseConfiguration>
@@ -122,47 +138,15 @@
 
     <profiles>
         <profile>
-            <id>desktop</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
+            <id>android</id>
             <properties>
-                <clientTarget>host</clientTarget>
+                <gluonfx.target>android</gluonfx.target>
             </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>com.gluonhq.attach</groupId>
-                    <artifactId>display</artifactId>
-                    <version>${attach.version}</version>
-                    <classifier>desktop</classifier>
-                    <scope>runtime</scope>
-                </dependency>
-                <dependency>
-                    <groupId>com.gluonhq.attach</groupId>
-                    <artifactId>lifecycle</artifactId>
-                    <version>${attach.version}</version>
-                    <classifier>desktop</classifier>
-                    <scope>runtime</scope>
-                </dependency>
-                <dependency>
-                    <groupId>com.gluonhq.attach</groupId>
-                    <artifactId>storage</artifactId>
-                    <version>${attach.version}</version>
-                    <classifier>desktop</classifier>
-                    <scope>runtime</scope>
-                </dependency>
-            </dependencies>
         </profile>
         <profile>
             <id>ios</id>
             <properties>
-                <clientTarget>ios</clientTarget>
-            </properties>
-        </profile>
-        <profile>
-            <id>android</id>
-            <properties>
-                <clientTarget>android</clientTarget>
+                <gluonfx.target>ios</gluonfx.target>
             </properties>
         </profile>
     </profiles>
@@ -172,6 +156,16 @@
             <id>gluon-releases</id>
             <url>https://nexus.gluonhq.com/nexus/content/repositories/releases/</url>
         </repository>
+        <repository>
+            <id>snapshots</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        </repository>
     </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>snapshots</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        </pluginRepository>
+    </pluginRepositories>
 
 </project>
